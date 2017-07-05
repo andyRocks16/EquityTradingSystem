@@ -20,55 +20,6 @@ export function itemsIsLoading(state = false, action) {
     }
 }
 
-
-export function openModal(state = false, action) {
-    switch (action.type) {
-        case 'OPEN_MODAL':
-            return action.open;
-
-        default:
-            return state;
-    }
-}
-export function openDialogue(state = false, action) {
-    console.log(state,'openDialog')
-    switch (action.type) {
-        case 'OPEN_DIALOGUE':
-            return action.openD;
-
-        default:
-            return state;
-    }
-}
-export function loadHeader(state = false, action) {
-    switch (action.type) {
-        case 'LOAD':
-            return true;
-        case 'NOT_LOAD' :
-            return false;
-
-        default:
-            return state;
-    }
-}
-
-export function notifications(state = [], action = {}) {
-  switch(action.type) {
-    case "RNS_SHOW_NOTIFICATION":
-      const { type, ...rest } = action;
-      return [
-        ...state,
-        { ...rest, uid: action.uid}
-      ];
-    case "RNS_HIDE_NOTIFICATION":
-      return state.filter(notification => {
-        return notification.uid !== action.uid;
-      });
-  }
-  return state;
-}
-
-
 export function items(state = [], action) {
     let newOrder;
     switch (action.type) {
@@ -223,19 +174,81 @@ export function orders(state = [], action) {
     }
 }
 
-export function notificationMsg(state = [], action) {
+
+
+export function userInfo(state = [], action) {
     switch (action.type) {
-        case "NOTIFY_USER":
-            let newNotifications = [];
-            if(action.notifications.length > 15)
-                newNotifications = [action.notificationMsg];
-            else
-                newNotifications = [
-                ...action.notifications,
-                action.notificationMsg
-            ];
-            return newNotifications;
+        case "LOGIN_SUCCESS":
+            console.log(action.user)
+            return action.user;
         default:
             return state;
     }
 }
+
+export function shares(state = [], action) {
+    switch (action.type) {
+        case "SHARES_SUCCESS":
+            return action.shares;
+        case "SHARES_FAIL":
+            return [];
+        default:
+            return state;
+    }
+}
+
+export function shareName(state = [], action) {
+    switch (action.type) {
+        case "SHARE":
+            var share = {
+                ...action.share,
+                method : action.action
+            }
+            return share;
+        case "SHARE_PURCHASED":
+            return [];
+        default:
+            return state;
+    }
+}
+
+export function traders(state = [], action) {
+    switch (action.type) {
+        case "TRADERS":
+            return action.traders;
+        default:
+            return state;
+    }
+}
+
+
+export function pendingOrders(state = [], action) {
+    switch (action.type) {
+        case "PENDING_ORDERS":
+        console.log(action.orders.message, "returninf")
+            return action.orders.message;
+        default:
+            return state;
+    }
+}
+
+export function drafts(state = [], action) {
+    switch (action.type) {
+        case "DRAFTS":
+        console.log(action.drafts)
+            return action.drafts.message;
+        default:
+            return state;
+    }
+}
+
+export function orderData(state = [], action) {
+    switch (action.type) {
+        case "SUBMIT_ORDERS":
+            console.log(action.orderData)
+            return action.orderData.message;
+        default:
+            return state;
+    }
+}
+

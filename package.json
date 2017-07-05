@@ -30,6 +30,7 @@
     "font-awesome": "4.7.0",
     "history": "4.5.1",
     "install": "^0.8.8",
+    "jquery": "3.2.1",
     "material-paper": "0.0.8",
     "material-ui": "0.17.0",
     "material-ui-fullscreen-dialog": "0.3.1",

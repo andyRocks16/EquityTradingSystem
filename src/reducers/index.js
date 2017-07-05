@@ -1,21 +1,12 @@
 import { combineReducers } from 'redux';
-import { items, itemsHasErrored, itemsIsLoading,stocks,orders, searchResults, notifications, notificationMsg, loadHeader ,openModal,openDialogue} from './items';
-import { users, usersHasErrored, usersIsLoading,loginId } from './user';
+import {userInfo, drafts, shares, shareName, traders, pendingOrders, orderData} from './items';
 
 export default combineReducers({
-    items,
-    stocks,
-    orders,
-    itemsHasErrored,
-    itemsIsLoading,
-    users,
-    usersHasErrored,
-    usersIsLoading,
-    loginId,
-    searchResults,
-    notifications,
-    notificationMsg,
-    loadHeader,
-    openModal,
-    openDialogue
+    userInfo,
+    shares,
+    shareName,
+    traders,
+    orderData,
+    drafts,
+    pendingOrders
 });

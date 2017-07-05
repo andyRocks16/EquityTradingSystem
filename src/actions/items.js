@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-export var responseOrder = [];
-
 export function itemsHasErrored(bool) {
     return {
         type: 'ITEMS_HAS_ERRORED',
@@ -15,75 +13,84 @@ export function itemsIsLoading(bool) {
         isLoading: bool
     };
 }
-export function openModal(bool) {
-    console.log('insider reducer openModal')
-    
+
+export function loginSuccess(user) {
     return {
-        type: 'OPEN_MODAL',
-        open: bool
-    };
-}
-export function openDialogue(bool) {
-    console.log('insider reducer dialogue')
-    
-    return {
-        type: 'OPEN_DIALOGUE',
-        openD: bool
+        type: 'LOGIN_SUCCESS',
+        user
     };
 }
 
-export function itemsFetchDataSuccess(items) {
+export function tradersFetchDataSuccess(traders) {
     return {
-        type: 'ITEMS_FETCH_DATA_SUCCESS',
-        items
+        type: 'TRADERS',
+        traders
     };
 }
 
-export function stockFetchDataSuccess(stocks) {
+export function shareSuccess(shares) {
     return {
-        type: 'STOCK_FETCH_DATA_SUCCESS',
-        stocks
+        type: 'SHARES_SUCCESS',
+        shares
     };
 }
 
-export function orderPlaceDataSuccess(order) {
+export function shareFail(shares) {
     return {
-        type: 'ORDER_PLACE_DATA_SUCCESS',
+        type: 'SHARES_FAIL'
+    };
+}
+
+export function updateShare(action, share) {
+    return {
+        type: 'SHARE',
+        action, share
+    };
+}
+
+export function pendingOrderSuccess(orders){
+    return {
+        type: 'PENDING_ORDERS',
         orders
     };
 }
 
-export function deleteOrderSuccess() {
+export function orderSubmitSuccess(orderData){
     return {
-        type: 'DELETE_ORDER_SUCCESS',
+        type: 'SUBMIT_ORDERS',
+        orderData
     };
 }
 
-export function updateSearch(newOrder, searchResults) {
+export function draftsDataSuccess(drafts){
+    console.log(drafts)
     return {
-        type: 'UPDATE_SEARCH_DATA',
-        newOrder,
-        searchResults
+        type: 'DRAFTS',
+        drafts
     };
 }
 
-export function notify(notificationMsg, notifications) {
-    return {
-        type: 'NOTIFY_USER',
-        notificationMsg,
-        notifications
+
+export function getDrafts(url) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        console.log(url)
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(draftsDataSuccess(items))
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
 
-export function updateOrder(msg, orders, newOrder, searchResults) {
-    return {
-        type: msg,
-        orders,
-        newOrder
-    };
-}
-
-export function stockFetchData(url) {
+export function getTraders(url) {
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
 
@@ -93,14 +100,15 @@ export function stockFetchData(url) {
             method: 'get',
             responseType: 'json'
         })
-            .then((response) => { return response.data; })
-            .then((stocks) => dispatch(stockFetchDataSuccess(stocks)))
-            .catch((err) => {
-                dispatch(itemsHasErrored(true))
-                console.log(err.message)
-            });
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(tradersFetchDataSuccess(items))
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
+
 
 export function itemsFetchData(url) {
     return (dispatch) => {
@@ -114,98 +122,84 @@ export function itemsFetchData(url) {
         })
             .then((response) => response.data)
             .then((items) => {
-              //  dispatch(updateSearch(items))
-                return dispatch(itemsFetchDataSuccess(items))})
+                //  dispatch(updateSearch(items))
+                return dispatch(itemsFetchDataSuccess(items))
+            })
             .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
 
-export function orderPostData(url, data) {
+export function loginUser(url, data) {
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
-
-
         return axios({
             url: url,
             timeout: 20000,
-            data,
             method: 'post',
+            data,
             responseType: 'json'
         })
-            .then((response) => {
-                console.log(response);
-                return response.data;
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(loginSuccess(items))
             })
-            .then((orders) => { console.log(responseOrder); responseOrder.push(orders); dispatch(orderPlaceDataSuccess(responseOrder)) })
-            .catch((err) => { console.log(err.message); dispatch(itemsHasErrored(true)) });
+            .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
 
-
-export function deleteOrders(url) {
+export function searchShares(url) {
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
-
-
         return axios({
             url: url,
             timeout: 20000,
-            method: 'delete',
+            method: 'get',
             responseType: 'json'
         })
-            .then((response) => {
-                console.log(response);
-                dispatch(updateSearch([]))
-                return response.data;
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(shareSuccess(items))
             })
-            .catch((err) => { console.log(err.message); dispatch(itemsHasErrored(true)) });
+            .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
 
-export function searchItems(key, criteria, items){
-    let type = "SEARCH_DATA_" + criteria;
-    return {
-        type,
-        items,
-        key
-    }
+export function getOrders(url) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(pendingOrderSuccess(items))
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
 }
 
-export function show(opts = {}, level = 'success') {
-  return {
-    type: "RNS_SHOW_NOTIFICATION",
-    ...opts,
-    uid: opts.uid || Date.now(),
-    level
-  };
-}
-
-export function success(opts) {
-  return show(opts, 'success');
-}
-
-export function error(opts) {
-  return show(opts, 'error');
-}
-
-export function warning(opts) {
-  return show(opts, 'warning');
-}
-
-export function info(opts) {
-  return show(opts, 'info');
-}
-
-export function hide(uid) {
-  return {
-    type: RNS_HIDE_NOTIFICATION,
-    uid
-  };
-}
-
-export function change(type) {
-    return {
-        type
+export function submitOrder(url, data) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'post',
+            data,
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(orderSubmitSuccess(items))
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
 
