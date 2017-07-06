@@ -19,13 +19,14 @@ export class Dashboard extends React.Component {
     }
 
     componentWillMount() {
-        var tempId = this.props.userInfo[0].message[0].data;
+        var tempId = this.props.userInfo.credentials[0].data;
+        console.log(tempId)
         this.props.getTraders("http://localhost:8081/getTraders");
         this.props.getOrders("http://localhost:8081/getPendingOrders/" + tempId)
     }
 
     componentDidMount() {
-        var tempId = this.props.userInfo[0].message[0].data;        
+        var tempId = this.props.userInfo.credentials[0].data;        
         this.props.getOrders("http://localhost:8081/getPendingOrders/" + tempId)
     }
 

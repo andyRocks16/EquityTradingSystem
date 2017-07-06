@@ -9,12 +9,14 @@ export class Login extends React.Component {
     }
 
     login() {
+
+        
         var $this = this;
         var id = ReactDOM.findDOMNode(this.refs.id).value;
         var pwd = ReactDOM.findDOMNode(this.refs.pwd).value;
         var role = ReactDOM.findDOMNode(this.refs.role).value;
         var data = { id: id, password: pwd, access: role }
-        this.props.login("http://localhost:8081/login", data)
+        this.props.login("http://localhost:8081/loginData", data)
         // .then(function () {
         //     if (typeof $this.props.userInfo !== 'undefined' && $this.props.userInfo[0].access == $this.role) {
         //         window.location.href = "http://localhost:3000/pm_dashboard";

@@ -6,19 +6,30 @@ export class Drafts extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            id : []
+        }
     }
 
-    giveID(dId, dCri) {
-        console.log(dCri+dId);
-        return dCri + dId;
+    getId(idCri, id){
+        console.log(idCri + id);
+        return idCri + id;
     }
 
     componentWillMount() {
-        var tempId = this.props.userInfo[0].message[0].data;
+        var ids = [];
+        var length = this.props.drafts.length ;
+        for(var i = 0; i < length ; i++){
+            ids.push(this.getId("collapse" , i));
+        }
+        this.setState({id : ids})
+        var tempId = this.props.userInfo.credentials[0].data;
         this.props.getDrafts("http://localhost:8081/getDrafts/" + tempId);
     }
 
     render() {
+        var i = 0;
+        console.log(this.state.id)
         var drafts;
         var $this = this;
         if (typeof this.props.drafts !== 'undefined' && this.props.drafts.length > 0) {
@@ -29,11 +40,11 @@ export class Drafts extends React.Component {
 
                             <div className="panel-heading">
                                 <h4 className="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" data-target={$this.giveID.bind($this, d.id, "#collapse")}>+ {d.share_name} DRAFT </a>
+                                    <a data-toggle="collapse" data-parent="#accordion" data-target={"#" + $this.state.id[i]}>+ {d.share_name} DRAFT </a>
                                 </h4>
                             </div>
 
-                            <div id={$this.giveID.bind($this, d.id, "collapse")} className="panel-collapse collapse out">
+                            <div id={$this.state.id[i++]} className="panel-collapse collapse out">
                                 <div className="panel-body">
                                     <div className="table-responsive">
                                         <table className="table table-striped">
