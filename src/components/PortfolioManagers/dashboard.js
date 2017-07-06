@@ -154,8 +154,9 @@ export class Dashboard extends React.Component {
                         </div>
                     </section>
                     <hr />
-                    <div className="container">
-                        <div className="panel-group col-lg-12" id="accordion">
+                    <div className="row"> 
+                    <div className="container-fluid col-xs-12 col-sm-12 col-md-12">
+                        <div className="panel-group" id="accordion">
                             <div className="panel panel-default">
                                 <div className="panel-heading">
                                     <h4 className="panel-title">
@@ -185,6 +186,7 @@ export class Dashboard extends React.Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </section>
 

@@ -6,29 +6,26 @@
 }
 
 .nav {
-    background-color: #407ada;
+    background-color: #8597ad;
     margin-top: 10px;
     display:block;
 }
 
 thead {
-    background-color: #a9fff7;
+    background-color: #a7b6cd;
 }
 
 .panel-heading {
     background-color: #628dd4;
 }
 
-.nav-pills>li>a {
-    color: white;
+
+.nav>li>a:focus, .nav>li>a:hover{
+    text-decoration: none;
+    background-color:#8597ad;
     display:block;
 }
 
-.nav>li>a:focus, .nav>li>a:hover, .nav>li>a:active {
-    text-decoration: none;
-    background-color:#153F84;
-    display:block;
-}
 
 .selected {
     color: white;
@@ -36,7 +33,7 @@ thead {
 }
 
 form {
-    border: 3px solid cyan;
+    border: 3px solid #a7b6cd;
     padding: 5px;
 }
 
@@ -59,4 +56,14 @@ label{
 
 .navbar {
     margin-bottom: 0px;
+}
+
+#symbol {
+        margin-top: 12px;
+}
+#trader {
+        margin-top: 10px;
+}
+.white{
+    color: white;
 }
