@@ -63,10 +63,16 @@ export function orderSubmitSuccess(orderData){
 }
 
 export function draftsDataSuccess(drafts){
-    console.log(drafts)
     return {
         type: 'DRAFTS',
         drafts
+    };
+}
+
+export function removeShare(){
+    return {
+        type: 'SHARE_REMOVE'
+        
     };
 }
 
@@ -203,3 +209,66 @@ export function submitOrder(url, data) {
     };
 }
 
+
+export function saveDraft(url, data) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        console.log(data)
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'post',
+            data,
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                console.log(items)
+                return true;
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}
+
+export function delDraft(url, data) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        console.log(data)
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'post',
+            data,
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                console.log(items)
+                return dispatch(draftsDataSuccess(items))
+                
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}
+
+export function logout(url, data) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        console.log(data)
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                console.log(items)
+                return true;
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}

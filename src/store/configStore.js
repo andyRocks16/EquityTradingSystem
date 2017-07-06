@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { connect } from 'react-redux';
 // import rootReducer from '../reducers/index';
 
-import { loginUser, getDrafts, searchShares, shareFail, updateShare, getTraders, getOrders, submitOrder } from '../actions/items';
+import { loginUser, dlogout, delDraft, removeShare, saveDraft, getDrafts, searchShares, shareFail, updateShare, getTraders, getOrders, submitOrder } from '../actions/items';
 import App from '../containers/App';
 import '../styles/index.css';
 import '../styles/header_footer.css';
@@ -36,7 +36,11 @@ const mapDispatchToProps = (dispatch) => {
         getTraders: (url) => dispatch(getTraders(url)),
         getOrders: (url) => dispatch(getOrders(url)),
         submitOrder: (url, data) => dispatch(submitOrder(url, data)),
-        getDrafts: (url) => dispatch(getDrafts(url))
+        getDrafts: (url) => dispatch(getDrafts(url)),
+        saveDraft: (url, data) => dispatch(saveDraft(url, data)),
+        removeShare: () => dispatch(removeShare()),
+        logout: (url) => dispatch(logout()),
+        delDraft: (url, data) => dispatch(delDraft(url, data))
     }
 };
 

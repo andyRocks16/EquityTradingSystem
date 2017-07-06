@@ -26,7 +26,7 @@ export class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        var tempId = this.props.userInfo.credentials[0].data;        
+        var tempId = this.props.userInfo.credentials[0].data;
         this.props.getOrders("http://localhost:8081/getPendingOrders/" + tempId)
     }
 
@@ -48,22 +48,29 @@ export class Dashboard extends React.Component {
     }
 
     cancelOrder() {
-
+        ReactDOM.findDOMNode(this.refs.quantity).value = "";
+        ReactDOM.findDOMNode(this.refs.amt).value = "";
+        ReactDOM.findDOMNode(this.refs.total).value = "";        
+        ReactDOM.findDOMNode(this.refs.stop_price).value = "";
+        ReactDOM.findDOMNode(this.refs.trader).value = "";
+        this.props.removeShare();
     }
 
     submitOrder() {
-        var tempId = this.props.userInfo[0].message[0].data;
+        var tempId = this.props.userInfo.credentials[0].data;        
         var data = this.orderData();
-        console.log(data);
         this.props.submitOrder("http://localhost:8081/giveOrder/" + tempId, data);
+        this.cancelOrder();
     }
 
     saveDraftOrder() {
-        var data = orderData();
+        var tempId = this.props.userInfo.credentials[0].data;               
+        var data = this.orderData();        
+        this.props.saveDraft("http://localhost:8081/saveDraft/" + tempId, data);
+        this.cancelOrder();        
     }
 
     render() {
-        console.log(this.props.pendingOrders)
         var traders, orders;
         if (typeof this.props.traders !== 'undefined' && this.props.traders.length > 0) {
             traders = this.props.traders.map(function (trader) {
@@ -127,7 +134,7 @@ export class Dashboard extends React.Component {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <label htmlFor="total" className="control-label">Total </label>
-                                        <input value={this.state.total} type="text" className="form-control" id="total" placeholder="Total Investment" />
+                                        <input ref="total" value={this.state.total} type="text" className="form-control" id="total" placeholder="Total Investment" />
                                     </div>
                                     <div className="col-md-4">
                                         <label htmlFor="stop_loss" className="control-label">Stop Loss </label>
@@ -155,39 +162,39 @@ export class Dashboard extends React.Component {
                         </div>
                     </section>
                     <hr />
-                    <div className="row"> 
-                    <div className="container-fluid col-xs-12 col-sm-12 col-md-12">
-                        <div className="panel-group" id="accordion">
-                            <div className="panel panel-default">
-                                <div className="panel-heading">
-                                    <h4 className="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">Current Trade</a>
-                                    </h4>
-                                </div>
-                                <div id="collapse1" className="panel-collapse collapse ">
-                                    <div className="panel-body">
-                                        <div className="table-responsive">
-                                            <table className="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Order ID</th>
-                                                        <th>Company</th>
-                                                        <th>Current Price</th>
-                                                        <th>Quantity</th>
-                                                        <th>Investment</th>
-                                                        {/*<th>Overall Gain</th>
+                    <div className="row">
+                        <div className="container-fluid col-xs-12 col-sm-12 col-md-12">
+                            <div className="panel-group" id="accordion">
+                                <div className="panel panel-default">
+                                    <div className="panel-heading">
+                                        <h4 className="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">Current Trade</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" className="panel-collapse collapse ">
+                                        <div className="panel-body">
+                                            <div className="table-responsive">
+                                                <table className="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Order ID</th>
+                                                            <th>Company</th>
+                                                            <th>Current Price</th>
+                                                            <th>Quantity</th>
+                                                            <th>Investment</th>
+                                                            {/*<th>Overall Gain</th>
                                                         <th>Latest Value</th>*/}
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    {orders}
-                                                </thead>
-                                            </table>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        {orders}
+                                                    </thead>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </section>
 

@@ -205,7 +205,7 @@ export function shareName(state = [], action) {
                 method : action.action
             }
             return share;
-        case "SHARE_PURCHASED":
+        case "SHARE_REMOVE":
             return [];
         default:
             return state;
