@@ -82,7 +82,6 @@ export class Drafts extends React.Component {
             });
         };
         var i = 0;
-        var $this = this;
         var drafts;
         var $this = this;
         if (typeof this.props.drafts !== 'undefined' && this.props.drafts.length > 0) {
@@ -156,7 +155,7 @@ export class Drafts extends React.Component {
                                                                 </div>
                                                                 <div className="col-md-6 ">
                                                                     <label>Price :</label>
-                                                                    <input ref="amt" type="text " name="price_amount " id="price_amount " className="form-control " />
+                                                                    <input ref="amt" value={d.price} type="text " name="price_amount " id="price_amount " className="form-control " />
                                                                 </div>
                                                             </div>
 
@@ -166,8 +165,8 @@ export class Drafts extends React.Component {
                                                             <div className="row ">
                                                                 <div className="col-md-4 ">
                                                                     <div className="form-group ">
-                                                                        <label htmlFor="quantity " className="control-label ">Quantity</label>
-                                                                        <input type="text " onChange={$this.updateValue.bind($this)} ref="quantity" className="form-control " id="quantity " placeholder="Quantity " />
+                                                                        <label htmlFor="quantity " className="control-label ">Quantity:</label>
+                                                                        <input type="text " onChange={$this.updateValue.bind($this, d.price)} ref="quantity" className="form-control " id="quantity " placeholder="Quantity " />
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-4 ">

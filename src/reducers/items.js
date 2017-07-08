@@ -252,3 +252,13 @@ export function orderData(state = [], action) {
     }
 }
 
+export function blocks(state = [], action) {
+    switch (action.type) {
+        case "BLOCKS":
+            return action.blocks.message;
+        default:
+            return state;
+    }
+}
+
+

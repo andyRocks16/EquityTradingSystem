@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {userInfo, drafts, shares, shareName, traders, pendingOrders, orderData} from './items';
+import {userInfo, blocks, drafts, shares, shareName, traders, pendingOrders, orderData} from './items';
 
 export default combineReducers({
     userInfo,
@@ -8,5 +8,6 @@ export default combineReducers({
     traders,
     orderData,
     drafts,
-    pendingOrders
+    pendingOrders,
+    blocks
 });

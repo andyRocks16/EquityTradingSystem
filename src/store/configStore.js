@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { connect } from 'react-redux';
 // import rootReducer from '../reducers/index';
 
-import { loginUser, dlogout, delDraft, removeShare, saveDraft, getDrafts, searchShares, shareFail, updateShare, getTraders, getOrders, submitOrder } from '../actions/items';
+import { loginUser, createBlocks, getBlocks, loginSuccess, logout, delDraft, removeShare, saveDraft, getDrafts, searchShares, shareFail, updateShare, getTraders, getOrders, submitOrder } from '../actions/items';
 import App from '../containers/App';
 import '../styles/index.css';
 import '../styles/header_footer.css';
@@ -23,13 +23,15 @@ const mapStateToProps = (state) => {
         traders: state.traders,
         drafts: state.drafts,
         pendingOrders: state.pendingOrders,
-        orderData: state.orderData
+        orderData: state.orderData,
+        blocks: state.blocks
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (url, data) => dispatch(loginUser(url, data)),
+        // login: (url, data) => dispatch(loginUser(url, data)),
+        login: (data) => dispatch(loginSuccess(data)),        
         searchShares: (url) => dispatch(searchShares(url)),
         shareFail: () => dispatch(shareFail()),
         updateShare: (action, share) => dispatch(updateShare(action, share)),
@@ -40,7 +42,9 @@ const mapDispatchToProps = (dispatch) => {
         saveDraft: (url, data) => dispatch(saveDraft(url, data)),
         removeShare: () => dispatch(removeShare()),
         logout: (url) => dispatch(logout()),
-        delDraft: (url, data) => dispatch(delDraft(url, data))
+        delDraft: (url, data) => dispatch(delDraft(url, data)),
+        getBlocks: (url) => dispatch(getBlocks(url)),
+        createBlocks: (url, data) => dispatch(createBlocks(url, data))
     }
 };
 

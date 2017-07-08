@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
+import axios from 'axios' 
 
 export class Login extends React.Component {
 
@@ -9,14 +10,21 @@ export class Login extends React.Component {
     }
 
     login() {
-
-        
         var $this = this;
         var id = ReactDOM.findDOMNode(this.refs.id).value;
         var pwd = ReactDOM.findDOMNode(this.refs.pwd).value;
         var role = ReactDOM.findDOMNode(this.refs.role).value;
         var data = { id: id, password: pwd, access: role }
-        this.props.login("http://localhost:8081/loginData", data)
+        axios.post("http://localhost:8081/loginData", data).then(function(data){
+            $this.props.login(data.data);
+            if(data.data.acess == "equity_trader"){
+                console.log(data.acess, window.location.href)
+                window.location.href = "http://localhost:3000/#/et_dashboard";
+            } else if(data.data.acess == "portfolio_manager"){
+                window.location.href = "http://localhost:3000/#/pm_dashboard";                
+            }
+        });
+        // this.props.login("http://localhost:8081/loginData", data)
         // .then(function () {
         //     if (typeof $this.props.userInfo !== 'undefined' && $this.props.userInfo[0].access == $this.role) {
         //         window.location.href = "http://localhost:3000/pm_dashboard";
@@ -42,9 +50,7 @@ export class Login extends React.Component {
                             <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" /> Remember Me
                         </label>
                     </div>
-                    <Link to={`/pm_dashboard`}>
                         <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.login.bind(this)}>Login</button>
-                    </Link>
                 </form>
             </div>
         );

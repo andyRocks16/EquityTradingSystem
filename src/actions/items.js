@@ -76,6 +76,13 @@ export function removeShare(){
     };
 }
 
+export function blockFetchSuccess(blocks){
+    return {
+        type: 'BLOCKS',
+        blocks
+    };
+}
+
 
 export function getDrafts(url) {
     return (dispatch) => {
@@ -148,6 +155,9 @@ export function loginUser(url, data) {
             .then((response) => response.data)
             .then((items) => {
                 //  dispatch(updateSearch(items))
+                if(items.acess == "PM"){
+                    window.location.href = ""
+                }
                 return dispatch(loginSuccess(items))
             })
             .catch(() => dispatch(itemsHasErrored(true)));
@@ -272,3 +282,46 @@ export function logout(url, data) {
             .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
+
+
+export function getBlocks(url) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'get',
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                return dispatch(blockFetchSuccess(items));
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}
+
+
+export function createBlocks(url, data) {
+    return (dispatch) => {
+        dispatch(itemsIsLoading(true));
+        console.log(data)
+        return axios({
+            url: url,
+            timeout: 20000,
+            method: 'post',
+            data,
+            responseType: 'json'
+        })
+            .then((response) => response.data)
+            .then((items) => {
+                //  dispatch(updateSearch(items))
+                console.log(items)
+                return true;
+                
+            })
+            .catch(() => dispatch(itemsHasErrored(true)));
+    };
+}
+
