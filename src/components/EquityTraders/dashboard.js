@@ -122,6 +122,7 @@ export class ETDashboard extends React.Component {
                             </select>
                         </section>
                     </div>
+                    <br/>
                     <div>
                         <button type="button" className="btn btn-primary btn-sm pull-right">
                             <span className="glyphicon glyphicon-search"></span> Search
@@ -130,6 +131,7 @@ export class ETDashboard extends React.Component {
                 </section>
                 <br />
                 <br />
+                
                 <hr />
 
 

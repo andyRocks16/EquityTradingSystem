@@ -86,13 +86,12 @@ export class ETOrder extends React.Component {
             <div>
                 <section className="container well" id="container">
 
-                    <div className="row">
                         <Tabs />
                         <hr />
 
-                        <div className="row">
+                    
 
-                            <section className="content  ">
+                            <section className="content">
                                 <div className="row">
                                     <section id="searchBar" className="container-fluid col-xs-12 col-sm-12 col-md-6">
                                         <label htmlFor="search-shares" className="search">Search Order: </label>
@@ -113,12 +112,16 @@ export class ETOrder extends React.Component {
                                         </select>
                                     </section>
                                 </div>
+                                <br/>
                                 <div>
                                     <button type="button" className="btn btn-primary btn-sm pull-right">
                                         <span className="glyphicon glyphicon-search"></span> Search
                         </button>
                                 </div>
                             </section>
+                            <br/>
+                            <br/>
+                            <hr/>
 
                             {/*<div className="table_div col-xs-12 table-responsive ">
                                 <table className="table table-striped table-bordered ">
@@ -126,7 +129,7 @@ export class ETOrder extends React.Component {
                                 </table>
                             </div>*/}
                             <div>
-                                <div className="col-md-12">
+                                
                                     <div className="panel-group" id="accordion">
                                         <div className="panel panel-default ">
                                             <div className="panel-heading">
@@ -139,11 +142,10 @@ export class ETOrder extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                        
 
                             </div>
-                        </div >
-                    </div>
+                    
                 </section>
             </div>
         );

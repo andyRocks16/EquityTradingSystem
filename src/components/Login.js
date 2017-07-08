@@ -43,7 +43,7 @@ export class Login extends React.Component {
                         <option value="" selected disabled>Login As</option>
                         <option value="PM">Portfolio Manager</option>
                         <option value="ET">Equity Trader</option>
-                        <option value="broker">Broker</option>
+                
                     </select>
                     <div className="pull-right">
                         <label className="checkbox">

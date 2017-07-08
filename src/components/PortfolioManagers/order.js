@@ -132,7 +132,7 @@ export class Order extends React.Component {
 
         }
         return (
-            <section className="cotainer well">
+            <section className="container well">
                 <div className="row">
                     <Tabs />
                     <div>

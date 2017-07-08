@@ -92,3 +92,7 @@ table thead th:hover{
 .arrow-down,.arrow-up{
   padding-right: 10px;
 }
+
+#sort, #searchBy{
+    margin-top:10px;
+}
